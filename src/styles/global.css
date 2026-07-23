@@ -20,34 +20,54 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  /* Layered depth wash — fixed so atmosphere holds while scrolling */
   body {
     background-color: var(--background);
     background-image:
       radial-gradient(
-        ellipse 80% 50% at 10% -10%,
-        color-mix(in oklab, var(--accent) 18%, transparent),
-        transparent 55%
+        ellipse 90% 55% at 8% -8%,
+        color-mix(in oklab, var(--accent) 28%, transparent),
+        transparent 58%
       ),
       radial-gradient(
-        ellipse 60% 40% at 100% 0%,
+        ellipse 70% 45% at 100% 2%,
+        color-mix(in oklab, var(--secondary) 22%, transparent),
+        transparent 52%
+      ),
+      radial-gradient(
+        ellipse 75% 50% at 45% 55%,
+        color-mix(in oklab, var(--accent) 12%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 65% 40% at 85% 100%,
         color-mix(in oklab, var(--secondary) 14%, transparent),
-        transparent 50%
+        transparent 55%
       );
     background-attachment: fixed;
   }
 
-  /* Subtle graphite wash only — no cool haze */
   :is([data-theme="dark"]) body {
     background-image:
       radial-gradient(
-        ellipse 70% 45% at 0% 0%,
-        color-mix(in oklab, var(--accent) 10%, transparent),
+        ellipse 85% 50% at 5% -5%,
+        color-mix(in oklab, var(--accent) 16%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 65% 40% at 100% 0%,
+        color-mix(in oklab, var(--secondary) 14%, transparent),
         transparent 50%
       ),
       radial-gradient(
-        ellipse 50% 35% at 100% 0%,
+        ellipse 70% 45% at 40% 58%,
+        color-mix(in oklab, var(--accent) 8%, transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 60% 35% at 90% 100%,
         color-mix(in oklab, var(--secondary) 10%, transparent),
-        transparent 45%
+        transparent 52%
       );
   }
 }
