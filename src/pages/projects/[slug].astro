@@ -123,9 +123,9 @@ const ogImage = heroImage?.src;
           <Image
             src={heroImage}
             alt={`Screenshot of ${title}`}
-            widths={[720, 1200]}
+            widths={[720, 1200, 1800, 2400]}
             sizes="(max-width: 768px) 100vw, 720px"
-            class="border-border w-full rounded-sm border object-cover"
+            class="js-zoomable border-border w-full cursor-zoom-in rounded-sm border object-cover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dashed"
           />
         </figure>
       )
@@ -190,9 +190,9 @@ const ogImage = heroImage?.src;
                 <Image
                   src={img}
                   alt={`${title} gallery image ${index + 1}`}
-                  widths={[400, 720]}
+                  widths={[400, 720, 1400, 2000]}
                   sizes="(max-width: 640px) 100vw, 360px"
-                  class="border-border w-full rounded-sm border object-cover"
+                  class="js-zoomable border-border w-full cursor-zoom-in rounded-sm border object-cover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dashed"
                 />
               </li>
             ))}
@@ -203,3 +203,16 @@ const ogImage = heroImage?.src;
   </main>
   <Footer />
 </Layout>
+
+<script>
+  import {
+    bindLightboxViewTransitions,
+    initImageLightbox,
+  } from "@/scripts/lightbox";
+
+  function boot() {
+    initImageLightbox(document.getElementById("main-content"));
+  }
+
+  bindLightboxViewTransitions(boot);
+</script>

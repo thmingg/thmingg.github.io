@@ -1,6 +1,6 @@
 ---
-title: "Virtual Try-On SaaS (Mannequio)"
-description: "Next.js product for AI Virtual Try-On with garment upload, outfit composition, direct-to-S3 uploads, NextAuth, Stripe credits, and real-time job status over NestJS and BullMQ."
+title: "Mannequ.io"
+description: "AI on-model catalog photography SaaS — Draping Studio turns flat garment shots into multi-angle model photos with Next.js, NestJS, BullMQ, Stripe, and AWS."
 company: "DT Technologies"
 role: "Full Stack Developer"
 period: "Feb 2025 – Current"
@@ -13,20 +13,22 @@ stack:
   - Stripe
 featured: true
 order: 2
-heroImage: ./images/mannequio-hero.svg
-# Optional media:
-# videoUrl: https://www.youtube.com/watch?v=VIDEO_ID
-# gallery:
-#   - ./images/mannequio-1.png
+demo: https://mannequ.io
+heroImage: ./images/mannequio-hero.png
+gallery:
+  - ./images/mannequio-gallery-1.png
+  - ./images/mannequio-gallery-2.png
+  - ./images/mannequio-gallery-3.png
 ---
 
 ## Overview
 
-Mannequio is an AI Virtual Try-On SaaS. Users upload garments, compose outfits, pick models and poses, then review generated results asynchronously while long-running jobs run in the background.
+[Mannequ.io](https://mannequ.io) is an AI Virtual Try-On / on-model catalog photography product. Fashion teams upload flat-lay or product shots, choose models and styling controls, then generate realistic on-model images — without studio casting or reshoots.
 
 ## Highlights
 
-- Next.js (React 19) product UI for upload, composition, and result viewing
+- Next.js product UI for garment upload, outfit composition, and result review
+- Draping Studio silhouette, styling, pose, and model systems for controlled catalog output
 - Direct-to-S3 uploads via presigned URLs
 - CloudFront-signed delivery of generated images
 - NextAuth with credentials and Google sign-in
@@ -37,7 +39,3 @@ Mannequio is an AI Virtual Try-On SaaS. Users upload garments, compose outfits, 
 ## Role
 
 Owned the Next.js web product experience and collaborated on the NestJS/BullMQ job pipeline so the client stays responsive under long-running AI workloads.
-
-## Media
-
-Add a product demo by setting `videoUrl` (YouTube, Vimeo, or a direct `.mp4` URL) and screenshots via `heroImage` / `gallery` in frontmatter, or inline markdown images under `./images/`.
