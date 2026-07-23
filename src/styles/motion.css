@@ -1,0 +1,185 @@
+/* Entrance + scroll reveal motion (respects prefers-reduced-motion) */
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-cue-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.35rem);
+  }
+}
+
+.hero-enter > * {
+  opacity: 0;
+  animation: hero-enter 0.7s ease forwards;
+}
+
+.hero-enter > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.hero-enter > *:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.hero-enter > *:nth-child(3) {
+  animation-delay: 0.25s;
+}
+.hero-enter > *:nth-child(4) {
+  animation-delay: 0.35s;
+}
+.hero-enter > *:nth-child(5) {
+  animation-delay: 0.45s;
+}
+.hero-enter > *:nth-child(6) {
+  animation-delay: 0.55s;
+}
+.hero-enter > *:nth-child(7) {
+  animation-delay: 0.65s;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+}
+
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.reveal-stagger.is-visible > *:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.reveal-stagger.is-visible > *:nth-child(3) {
+  transition-delay: 0.19s;
+}
+.reveal-stagger.is-visible > *:nth-child(4) {
+  transition-delay: 0.26s;
+}
+.reveal-stagger.is-visible > *:nth-child(5) {
+  transition-delay: 0.33s;
+}
+.reveal-stagger.is-visible > *:nth-child(6) {
+  transition-delay: 0.4s;
+}
+.reveal-stagger.is-visible > *:nth-child(7) {
+  transition-delay: 0.47s;
+}
+.reveal-stagger.is-visible > *:nth-child(8) {
+  transition-delay: 0.54s;
+}
+
+.scroll-cue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.scroll-cue:hover {
+  color: var(--accent);
+}
+
+.scroll-cue__icon {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  animation: scroll-cue-bounce 1.6s ease-in-out infinite;
+}
+
+.scroll-cue.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.motion-hover {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.motion-hover:hover {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter > * {
+    opacity: 1;
+    animation: none;
+  }
+
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .scroll-cue__icon {
+    animation: none;
+  }
+
+  .scroll-cue.is-hidden {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .motion-hover:hover {
+    transform: none;
+  }
+}
+
+/* If scripting is unavailable, keep content visible */
+@media (scripting: none) {
+  .hero-enter > *,
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

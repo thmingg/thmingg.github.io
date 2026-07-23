@@ -6,6 +6,7 @@ export default {
     posts: "Posts",
     tags: "Tags",
     about: "About",
+    projects: "Projects",
     archives: "Archives",
     search: "Search",
   },
@@ -32,6 +33,14 @@ export default {
     featured: "Featured",
     recentPosts: "Recent Posts",
     allPosts: "All Posts",
+    whoAmI: "Who Am I",
+    projects: "Projects",
+    blog: "Blog",
+    contact: "Contact",
+    contactCta: "Contact me",
+    viewAbout: "More about me",
+    viewAllProjects: "All projects",
+    getInTouch: "Get in touch",
   },
   footer: {
     copyright: "Copyright",
@@ -46,6 +55,9 @@ export default {
 
     postsTitle: "Posts",
     postsDesc: "All the articles I've posted.",
+
+    projectsTitle: "Projects",
+    projectsDesc: "Selected work from recent roles.",
 
     archivesTitle: "Archives",
     archivesDesc: "All the articles I've archived.",

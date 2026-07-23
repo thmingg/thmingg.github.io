@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <rect width="960" height="540" fill="#0a0a0a"/>
+  <rect x="48" y="48" width="864" height="444" rx="12" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="2"/>
+  <circle cx="280" cy="250" r="90" fill="none" stroke="#7eb6d9" stroke-width="3"/>
+  <circle cx="280" cy="250" r="55" fill="#111" stroke="#2a2a2a" stroke-width="2"/>
+  <rect x="420" y="160" width="360" height="16" rx="4" fill="#7eb6d9" opacity="0.85"/>
+  <rect x="420" y="200" width="300" height="10" rx="3" fill="#2a2a2a"/>
+  <rect x="420" y="230" width="260" height="10" rx="3" fill="#2a2a2a"/>
+  <rect x="420" y="280" width="140" height="40" rx="8" fill="#7eb6d9"/>
+  <rect x="580" y="280" width="140" height="40" rx="8" fill="#111" stroke="#2a2a2a" stroke-width="2"/>
+  <text x="80" y="430" fill="#9a9a9a" font-family="system-ui,sans-serif" font-size="22">Mannequio Virtual Try-On</text>
+</svg>

@@ -1,6 +1,8 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { Icon } from "astro-icon/components";
 import IconHash from "@/assets/icons/IconHash.svg";
+import { getTechMeta } from "@/data/tech";
 import config from "@/config";
 
 type Props = {
@@ -12,6 +14,8 @@ type Props = {
 const { tag, tagName, size = "lg" } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
+const meta = getTechMeta(tagName);
+const brand = meta?.color;
 ---
 
 <li>
@@ -19,21 +23,57 @@ const locale = Astro.currentLocale ?? config.site.lang;
     href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}
     transition:name={tag}
     class:list={[
-      "flex items-center gap-0.5",
-      "border-foreground border-b-2 border-dashed",
-      "hover:border-accent hover:text-accent hover:-mt-0.5",
-      "focus-visible:text-accent focus-visible:border-none",
+      "tech-tag flex items-center gap-1",
+      "border-b-2 border-dashed",
+      "hover:-mt-0.5",
+      "focus-visible:border-none",
       { "text-sm": size === "sm" },
       { "text-lg": size === "lg" },
     ]}
+    style={brand ? `--tech-color: ${brand}` : undefined}
   >
-    <IconHash
-      class:list={[
-        "opacity-80",
-        { "size-5": size === "lg" },
-        { "size-4": size === "sm" },
-      ]}
-    />
+    {
+      meta ? (
+        <Icon
+          name={meta.icon}
+          class:list={[
+            "shrink-0",
+            { "size-5": size === "lg" },
+            { "size-4": size === "sm" },
+          ]}
+          aria-hidden="true"
+        />
+      ) : (
+        <IconHash
+          class:list={[
+            "opacity-80",
+            { "size-5": size === "lg" },
+            { "size-4": size === "sm" },
+          ]}
+        />
+      )
+    }
     {tagName}
   </a>
 </li>
+
+<style>
+  .tech-tag {
+    border-color: var(--foreground);
+    color: inherit;
+  }
+
+  .tech-tag:hover,
+  .tech-tag:focus-visible {
+    border-color: var(--tech-color, var(--accent));
+    color: var(--tech-color, var(--accent));
+  }
+
+  .tech-tag[style*="--tech-color"] {
+    border-color: color-mix(in oklab, var(--tech-color) 55%, var(--border));
+  }
+
+  .tech-tag[style*="--tech-color"] :global(svg) {
+    color: var(--tech-color);
+  }
+</style>

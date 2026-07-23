@@ -1,0 +1,205 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import TechBadge from "@/components/TechBadge.astro";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import { getVideoEmbedUrl, isDirectVideoUrl } from "@/utils/getVideoEmbedUrl";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+type Props = {
+  project: CollectionEntry<"projects">;
+};
+
+const { project } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const {
+  title,
+  description,
+  company,
+  role,
+  period,
+  stack,
+  repo,
+  demo,
+  heroImage,
+  videoUrl,
+  gallery = [],
+} = project.data;
+
+const { Content } = await render(project);
+const embedUrl = videoUrl ? getVideoEmbedUrl(videoUrl) : null;
+const directVideo = videoUrl ? isDirectVideoUrl(videoUrl) : false;
+const ogImage = heroImage?.src;
+---
+
+<Layout
+  title={`${title} | ${config.site.title}`}
+  description={description}
+  ogImage={ogImage}
+>
+  <Header />
+  <Breadcrumb />
+
+  {
+    config.features.showBackButton && (
+      <div class="app-layout flex items-center justify-start">
+        <LinkButton
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="focus-outline hover:text-foreground/75 -ms-2 mt-4 mb-2"
+        >
+          <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />
+          <span>{t.post.goBack}</span>
+        </LinkButton>
+      </div>
+    )
+  }
+
+  <main id="main-content" class="app-layout reveal pb-10" data-pagefind-body>
+    <p class="text-foreground/80 text-sm">
+      {role} — {company} · {period}
+    </p>
+    <h1 class="text-accent mt-2 text-2xl font-bold sm:text-3xl">{title}</h1>
+    <p class="mt-3 max-w-2xl text-lg">{description}</p>
+
+    {
+      stack.length > 0 && (
+        <ul class="mt-4 flex list-none flex-wrap gap-2 p-0">
+          {stack.map(tech => (
+            <li>
+              <TechBadge label={tech} size="md" />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      (repo || demo) && (
+        <div class="mt-4 flex flex-wrap gap-4 text-sm">
+          {repo && (
+            <LinkButton
+              href={repo}
+              class="hover:text-accent underline decoration-dashed underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Repository
+            </LinkButton>
+          )}
+          {demo && (
+            <LinkButton
+              href={demo}
+              class="hover:text-accent underline decoration-dashed underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Live demo
+            </LinkButton>
+          )}
+        </div>
+      )
+    }
+
+    {
+      heroImage && (
+        <figure class="mt-8">
+          <Image
+            src={heroImage}
+            alt={`Screenshot of ${title}`}
+            widths={[720, 1200]}
+            sizes="(max-width: 768px) 100vw, 720px"
+            class="border-border w-full rounded-sm border object-cover"
+          />
+        </figure>
+      )
+    }
+
+    {
+      videoUrl && directVideo && (
+        <div class="mt-8">
+          <video
+            class="border-border aspect-video w-full rounded-sm border"
+            controls
+            preload="metadata"
+            src={videoUrl}
+            aria-label={`Demo video for ${title}`}
+          />
+        </div>
+      )
+    }
+
+    {
+      videoUrl && !directVideo && embedUrl && (
+        <div class="border-border mt-8 aspect-video overflow-hidden rounded-sm border">
+          <iframe
+            class="size-full"
+            src={embedUrl}
+            title={`Video for ${title}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          />
+        </div>
+      )
+    }
+
+    {
+      videoUrl && !directVideo && !embedUrl && (
+        <p class="mt-8 text-sm">
+          <LinkButton
+            href={videoUrl}
+            class="hover:text-accent underline decoration-dashed underline-offset-4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch video
+          </LinkButton>
+        </p>
+      )
+    }
+
+    <div class="app-prose mt-8">
+      <Content />
+    </div>
+
+    {
+      gallery.length > 0 && (
+        <section class="mt-10" aria-label="Project gallery">
+          <h2 class="text-xl font-semibold">Gallery</h2>
+          <ul class="mt-4 grid list-none gap-4 p-0 sm:grid-cols-2">
+            {gallery.map((img, index) => (
+              <li>
+                <Image
+                  src={img}
+                  alt={`${title} gallery image ${index + 1}`}
+                  widths={[400, 720]}
+                  sizes="(max-width: 640px) 100vw, 360px"
+                  class="border-border w-full rounded-sm border object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>

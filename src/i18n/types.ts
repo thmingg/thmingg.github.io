@@ -4,6 +4,7 @@ export interface UIStrings {
     posts: string;
     tags: string;
     about: string;
+    projects: string;
     archives: string;
     search: string;
   };
@@ -30,6 +31,14 @@ export interface UIStrings {
     featured: string;
     recentPosts: string;
     allPosts: string;
+    whoAmI: string;
+    projects: string;
+    blog: string;
+    contact: string;
+    contactCta: string;
+    viewAbout: string;
+    viewAllProjects: string;
+    getInTouch: string;
   };
   footer: {
     copyright: string;
@@ -44,6 +53,9 @@ export interface UIStrings {
 
     postsTitle: string;
     postsDesc: string;
+
+    projectsTitle: string;
+    projectsDesc: string;
 
     archivesTitle: string;
     archivesDesc: string;

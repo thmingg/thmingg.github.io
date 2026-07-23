@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import TechBadge from "@/components/TechBadge.astro";
+import { getProjectUrl } from "@/utils/getProjectUrl";
+import config from "@/config";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  variant?: "h2" | "h3";
+};
+
+const { project, variant: Heading = "h3" } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
+const { title, description, company, period, stack, heroImage } = project.data;
+const href = getProjectUrl(project.id, locale);
+
+const initials = title
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map(word => word[0]?.toUpperCase() ?? "")
+  .join("");
+
+const previewStack = stack.slice(0, 4);
+---
+
+<article
+  class="border-border bg-background/80 motion-hover group flex h-full flex-col overflow-hidden rounded-sm border transition-colors hover:border-secondary/40"
+>
+  <div class="border-border bg-muted relative aspect-video w-full overflow-hidden border-b">
+    {
+      heroImage ? (
+        <Image
+          src={heroImage}
+          alt=""
+          widths={[400, 720]}
+          sizes="(max-width: 640px) 100vw, 360px"
+          class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+        />
+      ) : (
+        <div
+          class="text-accent flex size-full flex-col items-center justify-center gap-2"
+          aria-hidden="true"
+        >
+          <span class="text-3xl font-semibold tracking-wide">{initials}</span>
+          {stack[0] && (
+            <span class="text-muted-foreground text-xs uppercase tracking-wider">
+              {stack[0]}
+            </span>
+          )}
+        </div>
+      )
+    }
+  </div>
+
+  <div class="flex flex-1 flex-col p-4">
+    <a
+      href={href}
+      class:list={[
+        "text-accent inline-block text-lg font-medium",
+        "decoration-dashed underline-offset-4 hover:underline",
+        "focus-visible:no-underline focus-visible:underline-offset-0",
+      ]}
+    >
+      <Heading class="line-clamp-2">{title}</Heading>
+    </a>
+    <p class="text-muted-foreground mt-1 text-sm">
+      {company} · {period}
+    </p>
+    <p class="mt-2 line-clamp-3 text-sm">{description}</p>
+    {
+      previewStack.length > 0 && (
+        <ul class="mt-auto flex list-none flex-wrap gap-1.5 p-0 pt-3">
+          {previewStack.map(tech => (
+            <li>
+              <TechBadge label={tech} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

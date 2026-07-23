@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <rect width="960" height="540" fill="#0a0a0a"/>
+  <rect x="48" y="48" width="864" height="444" rx="12" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="2"/>
+  <polyline points="100,360 220,300 340,320 460,220 580,250 700,160 820,180" fill="none" stroke="#7eb6d9" stroke-width="3"/>
+  <circle cx="820" cy="180" r="8" fill="#7eb6d9"/>
+  <rect x="100" y="120" width="180" height="20" rx="4" fill="#7eb6d9" opacity="0.8"/>
+  <rect x="100" y="160" width="260" height="10" rx="3" fill="#2a2a2a"/>
+  <text x="80" y="430" fill="#9a9a9a" font-family="system-ui,sans-serif" font-size="22">Realtime Auction</text>
+</svg>

@@ -46,11 +46,11 @@ const isActive = (path: string) => {
   class="app-layout flex flex-col items-center justify-between sm:flex-row"
 >
   <div
-    class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"
+    class="border-border relative flex w-full items-baseline justify-between border-b bg-transparent py-4 sm:items-center sm:py-6"
   >
     <a
       href={getRelativeLocaleUrl(locale, "")}
-      class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
+      class="text-accent absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
       {site.title}
     </a>
@@ -60,7 +60,7 @@ const isActive = (path: string) => {
     >
       <button
         id="menu-btn"
-        class="focus-outline self-end p-2 sm:hidden"
+        class="focus-outline text-muted-foreground hover:text-accent self-end p-2 sm:hidden"
         aria-label={t.a11y.openMenu}
         aria-expanded="false"
         aria-controls="menu-items"
@@ -72,30 +72,30 @@ const isActive = (path: string) => {
       </button>
       <ul
         id="menu-items"
-        class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
+        class="text-muted-foreground [&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
       >
-        <li class="col-span-2">
-          <a
-            href={getRelativeLocaleUrl(locale, "posts")}
-            class:list={{ "active-nav": isActive("/posts") }}
-          >
-            {t.nav.posts}
-          </a>
-        </li>
-        <li class="col-span-2">
-          <a
-            href={getRelativeLocaleUrl(locale, "tags")}
-            class:list={{ "active-nav": isActive("/tags") }}
-          >
-            {t.nav.tags}
-          </a>
-        </li>
         <li class="col-span-2">
           <a
             href={getRelativeLocaleUrl(locale, "about")}
             class:list={{ "active-nav": isActive("/about") }}
           >
             {t.nav.about}
+          </a>
+        </li>
+        <li class="col-span-2">
+          <a
+            href={getRelativeLocaleUrl(locale, "projects")}
+            class:list={{ "active-nav": isActive("/projects") }}
+          >
+            {t.nav.projects}
+          </a>
+        </li>
+        <li class="col-span-2">
+          <a
+            href={getRelativeLocaleUrl(locale, "posts")}
+            class:list={{ "active-nav": isActive("/posts") }}
+          >
+            {t.nav.posts}
           </a>
         </li>
         {
@@ -131,7 +131,7 @@ const isActive = (path: string) => {
                 title={t.nav.search}
                 aria-label={t.nav.search}
               >
-                <IconSearch class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" />
+                <IconSearch class="text-muted-foreground hover:text-accent absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" />
                 <span class="sr-only">{t.nav.search}</span>
                 {isActive("/search") && (
                   <IconUnderline

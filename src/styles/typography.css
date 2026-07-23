@@ -6,29 +6,50 @@
     @apply prose;
 
     h1,
-    h2,
-    h3,
-    h4,
     th {
-      @apply text-foreground mb-3;
+      @apply text-accent mb-3;
     }
 
-    h3 {
-      @apply italic;
+    h2 {
+      @apply text-accent mb-3 not-italic;
+    }
+
+    h3,
+    h4 {
+      @apply text-foreground mb-3 not-italic;
     }
 
     p,
-    strong,
     ol,
     ul,
     figcaption,
     table,
     code {
-      @apply text-foreground;
+      @apply text-foreground/90;
+    }
+
+    strong {
+      @apply text-muted-foreground font-semibold;
+    }
+
+    .company {
+      @apply text-secondary font-semibold not-italic;
+    }
+
+    .period {
+      @apply text-muted-foreground not-italic;
+    }
+
+    .degree {
+      @apply text-foreground font-semibold;
+    }
+
+    .skill-label {
+      @apply text-accent font-semibold;
     }
 
     a {
-      @apply text-foreground hover:text-accent wrap-break-word decoration-dashed underline-offset-4 focus-visible:no-underline;
+      @apply text-accent hover:text-secondary wrap-break-word decoration-dashed underline-offset-4 focus-visible:no-underline;
     }
 
     ul {

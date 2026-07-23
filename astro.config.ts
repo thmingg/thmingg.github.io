@@ -7,6 +7,7 @@ import {
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 import { unified } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
@@ -23,6 +24,41 @@ export default defineConfig({
   site: config.site.url,
   integrations: [
     mdx(),
+    icon({
+      include: {
+        "simple-icons": [
+          "typescript",
+          "javascript",
+          "python",
+          "go",
+          "csharp",
+          "react",
+          "vuedotjs",
+          "nextdotjs",
+          "nuxtdotjs",
+          "nestjs",
+          "flutter",
+          "astro",
+          "tailwindcss",
+          "graphql",
+          "postgresql",
+          "microsoftsqlserver",
+          "supabase",
+          "redis",
+          "amazonwebservices",
+          "googlecloud",
+          "docker",
+          "stripe",
+          "dotnet",
+        ],
+        mdi: [
+          "monitor-shimmer",
+          "briefcase-outline",
+          "hand-wave-outline",
+          "rocket-launch-outline",
+        ],
+      },
+    }),
     sitemap({
       filter: page =>
         config.features?.showArchives !== false || !page.endsWith("/archives/"),

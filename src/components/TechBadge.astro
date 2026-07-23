@@ -1,0 +1,54 @@
+---
+import { Icon } from "astro-icon/components";
+import { getTechMeta } from "@/data/tech";
+import IconHash from "@/assets/icons/IconHash.svg";
+
+type Props = {
+  label: string;
+  href?: string;
+  size?: "sm" | "md";
+};
+
+const { label, href, size = "sm" } = Astro.props;
+const meta = getTechMeta(label);
+
+const brand = meta?.color ?? "var(--muted-foreground)";
+const Tag = href ? "a" : "span";
+
+const sizeClass = size === "md" ? "px-2.5 py-1 text-sm gap-1.5" : "px-2 py-0.5 text-xs gap-1";
+const iconClass = size === "md" ? "size-4" : "size-3.5";
+---
+
+<Tag
+  href={href}
+  class:list={[
+    "tech-badge inline-flex items-center rounded-sm border font-medium",
+    sizeClass,
+    { "hover:brightness-110 transition-[filter]": !!href },
+  ]}
+  style={`--tech-color: ${brand}; background-color: color-mix(in oklab, var(--tech-color) 16%, var(--chip)); border-color: color-mix(in oklab, var(--tech-color) 35%, var(--border)); color: color-mix(in oklab, var(--tech-color) 55%, var(--foreground));`}
+>
+  {
+    meta ? (
+      <Icon name={meta.icon} class:list={[iconClass, "shrink-0"]} aria-hidden="true" />
+    ) : (
+      <IconHash class:list={[iconClass, "shrink-0 opacity-80"]} aria-hidden="true" />
+    )
+  }
+  <span>{label}</span>
+</Tag>
+
+<style>
+  :global([data-theme="dark"]) .tech-badge {
+    color: color-mix(in oklab, var(--tech-color) 70%, var(--foreground));
+  }
+
+  /* Next.js / pure black brands need a lift in light mode */
+  .tech-badge :global(svg) {
+    color: var(--tech-color);
+  }
+
+  :global([data-theme="light"]) .tech-badge :global(svg) {
+    color: color-mix(in oklab, var(--tech-color) 85%, #111);
+  }
+</style>

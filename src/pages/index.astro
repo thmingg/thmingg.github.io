@@ -1,13 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
 import Card from "@/components/Card.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import TechBadge from "@/components/TechBadge.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
@@ -20,8 +21,27 @@ const t = useTranslations(locale);
 
 const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const recentPosts = sortedPosts.slice(0, postsConfig.perIndex);
+
+const projects = (await getCollection("projects"))
+  .filter(p => p.data.featured === true)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const techStack = [
+  "React",
+  "Vue",
+  "Next.js",
+  "TypeScript",
+  "Flutter",
+  "Go",
+  "Python",
+  "GraphQL",
+  "PostgreSQL",
+  "Docker",
+  "AWS",
+  "GCP",
+];
+
 const homePath = getRelativeLocaleUrl(locale, "");
 ---
 
@@ -31,42 +51,23 @@ const homePath = getRelativeLocaleUrl(locale, "");
     id="main-content"
     data-layout="index"
     data-home-path={homePath}
+    data-pagefind-body
     class="app-layout"
   >
-    <section id="hero" class="border-border border-b pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
-      </h1>
-      <a
-        target="_blank"
-        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
-        class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
+    <section id="hero" class="border-border hero-enter relative border-b bg-transparent pt-8 pb-8">
+      <p class="text-foreground/70 text-sm tracking-wide uppercase">
+        Hi, my name is
       </p>
-      <p class="mt-2">
-        Read the blog posts or check{" "}
-        <LinkButton
-          class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton>{" "}
-        for more info.
+      <h1 class="my-3 text-4xl font-bold sm:my-4 sm:text-5xl">
+        {config.site.author}
+      </h1>
+      <p class="text-accent text-xl font-medium sm:text-2xl">
+        Web-focused Software Engineer
+      </p>
+      <p class="mt-4 max-w-2xl">
+        I build robust TypeScript applications—SPA and SSR frontends with React,
+        Vue, and Next.js—paired with Flutter mobile apps and cloud backends on
+        AWS and GCP.
       </p>
       {
         socials.length > 0 && (
@@ -78,50 +79,135 @@ const homePath = getRelativeLocaleUrl(locale, "");
           </div>
         )
       }
+      <div class="mt-6">
+        <LinkButton
+          href="#contact"
+          class="border-accent text-accent hover:bg-accent hover:text-accent-foreground motion-hover inline-flex border px-4 py-2 font-medium"
+        >
+          {t.home.contactCta}
+        </LinkButton>
+      </div>
+      <a id="scroll-cue" href="#about" class="scroll-cue">
+        <span>Scroll</span>
+        <span class="scroll-cue__icon" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <section id="about" class="border-border reveal border-b pt-12 pb-8">
+      <h2 class="text-2xl font-semibold tracking-wide">{t.home.whoAmI}</h2>
+      <p class="mt-4">
+        Web-focused Software Engineer with over 3 years of hands-on experience
+        building production TypeScript apps. Proven ability to modernize legacy
+        frontends, ship JWT/OAuth auth, and collaborate across Agile teams.
+      </p>
+      <h3 class="mt-6 text-lg font-semibold">Education</h3>
+      <ul class="mt-2 space-y-2">
+        <li>
+          <strong>BSc, Computer Science</strong> — Hong Kong Baptist University,
+          2022–2024
+        </li>
+        <li>
+          <strong>HD in Data Science and Analytics</strong> — IVE (Tsing Yi),
+          2020–2022
+        </li>
+      </ul>
+      <h3 class="mt-6 text-lg font-semibold">Tech stack</h3>
+      <ul class="reveal-stagger mt-3 flex list-none flex-wrap gap-2 p-0">
+        {
+          techStack.map(tech => (
+            <li>
+              <TechBadge label={tech} size="md" />
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-6">
+        <LinkButton
+          href={getRelativeLocaleUrl(locale, "about")}
+          class="motion-hover"
+        >
+          {t.home.viewAbout}
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+    </section>
+
+    <section id="projects" class="border-border reveal border-b pt-12 pb-8">
+      <h2 class="text-2xl font-semibold tracking-wide">{t.home.projects}</h2>
+      <p class="mt-2 text-foreground/80">
+        Selected work from recent full-stack roles.
+      </p>
+      <ul class="reveal-stagger mt-6 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2">
+        {
+          projects.map(project => (
+            <li class="h-full">
+              <ProjectCard project={project} />
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-2">
+        <LinkButton
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="motion-hover"
+        >
+          {t.home.viewAllProjects}
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
     </section>
 
     {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-border border-b": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.featured}
-          </h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    {
       recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.recentPosts}
-          </h2>
-          <ul>
-            {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+        <section id="blog" class="border-border reveal border-b pt-12 pb-8">
+          <h2 class="text-2xl font-semibold tracking-wide">{t.home.blog}</h2>
+          <p class="mt-2 text-foreground/80">
+            Notes on what I’ve built and learned along the way.
+          </p>
+          <ul class="reveal-stagger">
+            {recentPosts.map(data => (
               <Card variant="h3" {...data} />
             ))}
           </ul>
+          <div class="mt-4">
+            <LinkButton
+              href={getRelativeLocaleUrl(locale, "posts")}
+              class="motion-hover"
+            >
+              {t.home.allPosts}
+              <IconArrowRight class="inline-block rtl:-rotate-180" />
+            </LinkButton>
+          </div>
         </section>
       )
     }
 
-    <div class="my-8 text-center">
-      <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
-        {t.home.allPosts}
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    <section id="contact" class="reveal pt-12 pb-10">
+      <h2 class="text-2xl font-semibold tracking-wide">{t.home.contact}</h2>
+      <h3 class="mt-4 text-xl font-medium">Let’s build something together</h3>
+      <p class="mt-3 max-w-2xl">
+        I’m always open to collaboration, interesting product problems, and new
+        challenges. If you’d like to connect, reach out by email or LinkedIn.
+      </p>
+      <div class="mt-6">
+        <LinkButton
+          href="mailto:danielhoming@gmail.com"
+          class="border-accent text-accent hover:bg-accent hover:text-accent-foreground motion-hover inline-flex border px-4 py-2 font-medium"
+        >
+          {t.home.getInTouch}
+        </LinkButton>
+      </div>
+      {
+        socials.length > 0 && (
+          <div class="mt-6 flex max-sm:flex-col sm:items-center">
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
+              {t.home.socialLinks}:
+            </div>
+            <Socials />
+          </div>
+        )
+      }
+    </section>
   </main>
   <Footer />
 </Layout>

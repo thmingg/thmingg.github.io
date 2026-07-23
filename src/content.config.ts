@@ -4,6 +4,7 @@ import { glob } from "astro/loaders";
 import config from "@/config";
 
 export const BLOG_PATH = "src/content/posts";
+export const PROJECTS_PATH = "src/content/projects";
 
 const posts = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${BLOG_PATH}` }),
@@ -34,4 +35,41 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { posts, pages };
+const projects = defineCollection({
+  // Only project entry files at the collection root (not nested docs under images/)
+  loader: glob({ pattern: "[^_]*.{md,mdx}", base: `./${PROJECTS_PATH}` }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      company: z.string(),
+      role: z.string(),
+      period: z.string(),
+      stack: z.array(z.string()),
+      featured: z.boolean().optional(),
+      order: z.number().optional(),
+      repo: z.string().optional(),
+      demo: z.string().optional(),
+      /** Cover image — co-locate under src/content/projects/images/ */
+      heroImage: image().optional(),
+      /** YouTube, Vimeo, or absolute http(s) video URL shown on the detail page */
+      videoUrl: z
+        .string()
+        .refine(
+          value => {
+            try {
+              const parsed = new URL(value);
+              return parsed.protocol === "http:" || parsed.protocol === "https:";
+            } catch {
+              return false;
+            }
+          },
+          { message: "videoUrl must be an absolute http(s) URL" }
+        )
+        .optional(),
+      /** Extra screenshots shown in a gallery below the write-up */
+      gallery: z.array(image()).optional(),
+    }),
+});
+
+export const collections = { posts, pages, projects };

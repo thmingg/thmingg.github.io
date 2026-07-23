@@ -1,37 +1,52 @@
 ---
 title: "About"
-description: "A bit about me and this blog."
+description: "About Daniel Tsang — web-focused software engineer based in Hong Kong."
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+I’m a web-focused Software Engineer with over 3 years of hands-on experience building robust TypeScript applications—SPA and SSR frontends with React, Vue, and Next.js, plus complementary admin portals and product UIs.
 
-![Astro Paper](@/assets/images/astropaper-og.jpg)
+I’ve modernized legacy frontends, shipped production web apps with JWT/OAuth auth, and collaborated across Agile teams. I also pair web clients with Flutter mobile apps and cloud backends on AWS and GCP to deliver end-to-end product experiences.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+## Experience
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+### Full Stack Developer — <span class="company">DT Technologies</span>
 
-## Features
+<p class="period"><strong>Feb 2025 – Current</strong></p>
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+- Fashion manufacturer inventory platform (React, Flutter, PostgreSQL, AWS)
+- AI Virtual Try-On SaaS — Mannequio (Next.js, NestJS, BullMQ, Stripe, AWS)
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+### Full Stack Developer — <span class="company">Looking Watch Limited</span>
 
-and so much more.
+<p class="period"><strong>Jan 2024 – Jan 2025</strong></p>
 
-## Show your support
+- Real-time auction platform (React, Flutter, Go, AWS/GCP)
+- E-commerce application (Nuxt, Flutter, Go, Supabase)
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+### Web Developer (Part Time) — <span class="company">TabNext Asia Limited</span>
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+<p class="period"><strong>Dec 2022 – Dec 2023</strong></p>
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+- Clinical management system modernization from VB.NET to Vue.js
+- Medical modules: Vaccination, Prescription, and Patient Profiles
 
-Kyay zuu! 🙏🏼
+### Junior Data Science Engineer (Part Time) — <span class="company">MasterDynamic Ltd</span>
+
+<p class="period"><strong>Oct 2021 – May 2022</strong> (plus internship Aug 2021)</p>
+
+## Education
+
+- <span class="degree">BSc, Computer Science</span> — <span class="company">Hong Kong Baptist University</span>, <span class="period">2022–2024</span>
+- <span class="degree">HD in Data Science and Analytics</span> — <span class="company">IVE (Tsing Yi)</span>, <span class="period">2020–2022</span>
+
+## Skills
+
+<span class="skill-label">Languages & frameworks:</span> React, Vue, Next.js, TypeScript, Flutter, Go, Python, GraphQL
+
+<span class="skill-label">Data & infra:</span> PostgreSQL, Docker, AWS, GCP
+
+## Connect
+
+- [LinkedIn](https://www.linkedin.com/in/danielhoming)
+- [GitHub](https://github.com/thmingg)
+- [Email](mailto:danielhoming@gmail.com)

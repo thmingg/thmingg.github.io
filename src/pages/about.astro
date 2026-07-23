@@ -28,8 +28,10 @@ const { Content } = await render(about);
 
   <Breadcrumb />
 
-  <Main pageTitle={about.data.title} class="app-prose">
-    <Content />
+  <Main pageTitle={about.data.title} class="app-prose reveal">
+    <div data-pagefind-body>
+      <Content />
+    </div>
   </Main>
 
   <Footer />
